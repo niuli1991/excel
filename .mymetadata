@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="excel"
+  id="myeclipse.1441176625223"
+  context-root="/excel"
+  j2ee-spec="5.0"
+  archive="excel.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
