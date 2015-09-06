@@ -102,13 +102,15 @@
 
       function loadData() {
           var jsonDatas = $("#jsonDatas").val(); 
-          alert(jsonDatas);
-          if (jsonDatas == null) {
+          if (jsonDatas == "") {
               return false;
           }
+          $("#data").val(jsonDatas);
           jsonDatas = eval('(' + jsonDatas + ')');
-          var row = jsonDatas.row
+          var row = jsonDatas.row;
           var colName = $("#colName").val();
+          
+      	  $("#cols").val(colName);
           colName = colName.split("_");
           $("#datas").attr("style", "border:1px solid #95b8e7");
           for (var item = 0;item < row.length;item++) {
@@ -138,6 +140,13 @@
               $("#datas").append('<tr>' + td + '<\/td>');
           }
       }
+      
+      function downloadCheck(){
+      	if($("#jsonDatas").val() == ""){
+      		alert("请先上传excel！");
+      		return false;
+      	}
+      }
       $(function () {
 		loadData();
       })
@@ -156,7 +165,7 @@
                     theme="simple" id="file" onsubmit="return check()">
                 <s:fielderror name="file"></s:fielderror>
                 <s:actionerror/>
-                <table cellpadding="0" cellspacing="0" width="480px">
+                <table cellpadding="0" cellspacing="0" width="360px">
                     <tr>
                         <td>
                             <div style="padding:3px;">
@@ -174,22 +183,21 @@
                         <td>
                             <div style="padding:3px;">                                 
                                 <input type="submit" class="btn" value="上传文件"/>
+                                <input type="hidden" id="jsonDatas" name="jsonDatas" value='${jsonDatas}'/>
+                                <input type="hidden" id="colName" name="colName" value='${colName}'/>
                             </div>
-                        </td>
-                        <td width="120px">
-                            <a name="path" style="float:right" href="">下载Excel模板</a>  
-                            <input id="colName" type="hidden" name="colName" value='${colName}'/>                         
-                            <input id="jsonDatas" type="hidden" name="jsonDatas" value='${jsonDatas}'>
-                            
-                        </td>
+                        </td>             
                     </tr>
                 </table>
             </s:form>
         </div>
-        </div>
-        
+        <s:form action="excelDownLoad" method="post"namespace="/" enctype="multipart/form-data" theme="simple" id="" onsubmit="return downloadCheck();">
+        	<input type="hidden" id="data" name="data" value=''>
+        	<input type="hidden" id="cols" name="cols" value=''>
+        	<input type="submit" class="btn" value="下载excel"/>
+        </s:form>
         <div style="padding:10px">
-            <table cellpadding="0" cellspacing="0" id="datas"></table>
+            <table cellpadding="1" cellspacing="1" id="datas"></table>
         </div>
   </body>
 </html>

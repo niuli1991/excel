@@ -94,29 +94,26 @@ public class ExcelUpLoadAction extends ActionSupport {
 			if (flage) {
 				// 对表头进行处理
 				flage = false;
-				map.put("result", "结果");
 				resultList.add(map);
 				continue;
 			}
-			if (valIsNull(map, colName)) {
-				map.put("result", "成功");
+			if (valIsNull(map, colName)) {		
 				resultList.add(map);
 				continue;
 			}
 			resultList.add(map);
 			
 		}
-		System.out.println("colName:"+colName);
 		JSONObject json = new JSONObject();
 		json.put("row", resultList);
 		jsonDatas = json.toString();
-//		 ActionContext context = ActionContext.getContext();
-//		 context.put("colName", colName);
-		// Map request = (Map) context.getSession();
+		ActionContext context = ActionContext.getContext();
+		context.put("colName", colName);
+		Map request = (Map) context.getSession();
 		// //返回excel解析后的数据
 		// request.put("jsonDatas", jsonDatas.toString());
 		// //返回前台页面表头的列名
-		// request.put("colName", colName);
+		request.put("colName", colName);
 		return SUCCESS;
 	}
 

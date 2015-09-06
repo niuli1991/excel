@@ -21,6 +21,14 @@
 			<result name="input">/WEB-INF/content/excelUpLoad.jsp</result>
 			<result name="success">/WEB-INF/content/excelUpLoad.jsp</result>
 		</action>
+		<action name="excelDownLoad" class="demo.DownLoadExcelAction" >
+			<result name="success" type="stream">
+			   <param name="contentType">application/octet-stream;charset=ISO8859-1</param>  
+               <param name="contentDisposition">attachment;fileName="${fileName}"</param>  
+               <param name="inputName">downloadFile</param>  
+               <param name="bufferSize">1024</param>
+			</result>
+		</action>
 		<action name="*">
 			<result>/WEB-INF/content/excelUpLoad.jsp</result>
 		</action>
